@@ -1,0 +1,10 @@
+#!/bin/sh
+exec 2>&1
+
+if [ ! -e /root/.gaiad/config/genesis.json ]; then
+  /usr/bin/gaiad init $GAIAD_MONIKER
+  wget -q -O /root/.gaiad/config/genesis.json $GAIAD_GENESIS
+fi
+
+/usr/bin/gaiad start
+

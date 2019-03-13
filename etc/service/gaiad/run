@@ -6,5 +6,6 @@ if [ ! -e /root/.gaiad/config/genesis.json ]; then
   wget -q -O /root/.gaiad/config/genesis.json $GAIAD_GENESIS
 fi
 
+ulimit -n 4096
 /usr/bin/gaiad start
 

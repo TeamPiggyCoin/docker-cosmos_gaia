@@ -9,18 +9,17 @@
 FROM golang:alpine AS build-env
 
 # Set up version & dependencies
-ENV CHECKOUT_VER=v0.35.0
+ENV CHECKOUT_VER=v2.0.3
 ENV PACKAGES make git libc-dev bash gcc linux-headers eudev-dev curl
 
 # Install minimum necessary dependencies, build Cosmos SDK, remove packages
 RUN apk add --no-cache --update ca-certificates $PACKAGES && update-ca-certificates \
  && mkdir -p $GOPATH/src/github.com/cosmos \
  && cd $GOPATH/src/github.com/cosmos \
- && git clone https://github.com/cosmos/cosmos-sdk \
- && cd $GOPATH/src/github.com/cosmos/cosmos-sdk \
+ && git clone https://github.com/cosmos/gaia \
+ && cd $GOPATH/src/github.com/cosmos/gaia \
  && git checkout $CHECKOUT_VER \
  && make tools \
- && make vendor-deps \
  && make build \
  && make install
 
@@ -31,7 +30,7 @@ FROM qlustor/alpine-runit
 MAINTAINER Team PiggyCoin <team@piggy-coin.com>
 
 ENV GAIAD_MONIKER=piggy-coin.com
-ENV GAIAD_GENESIS=https://raw.githubusercontent.com/cosmos/testnets/master/latest/genesis.json
+ENV GAIAD_GENESIS=https://raw.githubusercontent.com/cosmos/launch/master/genesis.json
 
 # Install ca-certificates
 RUN apk-install --update wget ca-certificates && update-ca-certificates

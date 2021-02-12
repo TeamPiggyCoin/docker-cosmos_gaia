@@ -9,7 +9,7 @@
 FROM golang:alpine AS build-env
 
 # Set up version & dependencies
-ENV CHECKOUT_VER=v2.0.3
+ENV CHECKOUT_VER=v2.0.15
 ENV PACKAGES make git libc-dev bash gcc linux-headers eudev-dev curl
 
 # Install minimum necessary dependencies, build Cosmos SDK, remove packages
